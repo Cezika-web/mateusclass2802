@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resumo Pós-Aula — Mateus — CZK English</title>
+
+  <style>
+    :root{
+      --page-bg: #f4f7fa;
+      --card-bg: #fff;
+      --accent: #2f86e6;
+      --accent-dark: #1f6fd1;
+      --green: #36b37e;
+      --muted: #6b7280;
+      --border: #e6eef8;
+      --box-radius: 12px;
+      --card-width: 720px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background:var(--page-bg);
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:48px 20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--card-width);
+      background:var(--card-bg);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 6px 22px rgba(33,47,60,0.06);
+      border:1px solid rgba(15,33,64,0.03);
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:8px;
+    }
+
+    .badge{
+      background:linear-gradient(180deg,#fff,#f2fbff);
+      border:1px solid var(--border);
+      padding:8px 12px;
+      border-radius:999px;
+      color:var(--accent);
+      font-weight:700;
+      font-size:0.85rem;
+    }
+
+    h1{
+      margin:0;
+      font-size:1.3rem;
+      color:#0f1724;
+    }
+
+    .meta{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(47,134,230,0.12);
+    }
+
+    .btn.secondary{
+      background:#fff;
+      color:var(--accent);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    main{margin-top:18px;}
+    section{margin-top:18px;}
+
+    .panel{
+      background:#fbfdff;
+      border-radius:12px;
+      padding:16px;
+      border:1px solid var(--border);
+    }
+
+    .outline-card{
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:16px;
+      background:#fff;
+    }
+
+    /* Vocabulary boxes */
+    .vocab-grid{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .vocab{
+      flex:1;
+      min-width:220px;
+      border-radius:10px;
+      padding:14px;
+      border:2px solid #dfeefe;
+      background:#fff;
+    }
+
+    .vocab.green{
+      border-color:#c9f3dc;
+      background:#f5fff6;
+    }
+
+    .vocab h3{
+      margin:0;
+      font-size:1rem;
+      color:#154360;
+    }
+
+    .vocab p{
+      margin:8px 0 0 0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* Transcrição / gravação buttons */
+    .media-row{
+      display:flex;
+      gap:14px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+
+    .media-btn{
+      background:#fff;
+      border:1px solid var(--border);
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      min-width:200px;
+      justify-content:center;
+    }
+
+    /* Homework box */
+    .homework{
+      background:#f3fff6;
+      border:1px solid #d7f5df;
+      border-radius:10px;
+      padding:14px;
+      margin-top:10px;
+    }
+
+    /* ===== TALK TIME – TABELA RETANGULAR ===== */
+    .speaking{
+      margin-top:18px;
+      padding:16px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border:1px solid var(--border);
+      max-width:640px;
+    }
+
+    .speaking h2{
+      margin:0 0 10px 0;
+      font-size:1.05rem;
+      color:#0f1724;
+    }
+
+    .talk-table{
+      width:100%;
+      border-collapse:collapse;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid #e1e9f5;
+      font-size:0.9rem;
+    }
+
+    .talk-table th,
+    .talk-table td{
+      padding:8px 10px;
+      text-align:left;
+    }
+
+    .talk-table th{
+      background:#eef4ff;
+      color:#1b3556;
+      font-weight:700;
+      border-bottom:1px solid #dde6fa;
+    }
+
+    .row-teacher{
+      background:#e7f2ff; /* azul clarinho */
+    }
+
+    .row-student{
+      background:#e8f7ef; /* verde clarinho */
+    }
+
+    .talk-label{
+      font-weight:700;
+    }
+
+    .talk-percent{
+      font-weight:700;
+      color:#0f1724;
+    }
+
+    .talk-time{
+      color:var(--muted);
+    }
+
+    footer{
+      margin-top:20px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    /* responsive */
+    @media (max-width:720px){
+      .card{padding:18px;border-radius:14px;}
+      .vocab-grid{flex-direction:column;}
+      .media-row{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card" role="main">
+      <header>
+        <div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <span class="badge">PÓS-AULA</span>
+            <h1>Used to • Be used to • Get used to (e Stop smoking)</h1>
+          </div>
+          <div class="meta" style="margin-top:8px;">
+            <strong>Professor:</strong> César &nbsp;•&nbsp;
+            <strong>Aluno:</strong> Mateus &nbsp;•&nbsp;
+            <strong>Data:</strong> 28/02/2026
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="#" onclick="window.print();return false;">Imprimir / Salvar PDF</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel">
+          <p style="margin:0;font-weight:600;color:#08325a;">
+            📘 Revisão de conversação + gramática: <strong>used to / be used to / get used to</strong>, com exemplos reais, correções e prática guiada.
+          </p>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Resumo da Aula</h2>
+          <div class="outline-card">
+            <p style="margin:0 0 8px 0;">
+              Começamos com uma conversa sobre rotina de treino (ABC/ABCD), dores no <strong>joelho</strong> e como o corpo “vai melhorando” quando você aquece
+              (ex.: a dor diminui quando você começa na <em>exercise bike</em>). Também apareceu vocabulário de academia como <em>leg press</em> e sensações físicas
+              como <em>hurting</em> e <em>swollen</em>.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Depois fizemos dois “aquecimentos” com vídeo: um sobre uma lista de animais agressivos (ex.: <em>wild boar</em>, <em>wolverine</em>, <em>crocodile</em>) e outro sobre marcas/empresas (ex.: <em>Apple</em>, <em>Microsoft</em>, <em>Amazon</em>, <em>Walmart</em>).
+              O foco foi praticar <strong>chutes</strong> e confirmar respostas com linguagem simples (ex.: <em>probably…</em>, <em>on the list</em>, <em>I didn’t know…</em>).
+            </p>
+            <p style="margin:0 0 8px 0;">
+              O tema principal da aula foi dominar as diferenças entre:
+              <strong>used to</strong> (hábito passado que não acontece mais),
+              <strong>be used to</strong> (estar acostumado no presente ou em um ponto da história) e
+              <strong>get used to</strong> (processo de se acostumar).
+              Reforçamos a “regra do formato”: com <strong>be/get used to</strong> vem <strong>substantivo</strong> ou <strong>verbo + ing</strong> (ex.: <em>I’m used to noise</em>, <em>She’s used to working at night</em>).
+              Você criou várias frases e fomos ajustando tempo verbal (presente, passado, futuro) para deixar a intenção mais clara.
+            </p>
+            <p style="margin:0;">
+              No final, revisamos também a diferença entre <strong>stop smoking</strong> (parar com o hábito/vício) e <strong>stop to smoke</strong> (parar uma coisa para fumar naquele momento),
+              e combinamos que nas próximas conversas eu vou te forçar a usar <em>used to / be used to / get used to</em> de forma mais natural. 🧠
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Key Vocabulary</h2>
+          <div class="vocab-grid">
+            <div class="vocab">
+              <h3>Used to</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) costumava (hábito no passado que não acontece mais)</em><br>
+                <small>I used to drink energy drinks.</small>
+              </p>
+            </div>
+            <div class="vocab green">
+              <h3>Get used to</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) se acostumar (processo de adaptação)</em><br>
+                <small>I’m getting used to traffic.</small>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOVOS TÓPICOS: VOCABULÁRIO DA AULA, FRASES MODELO, CORREÇÕES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Vocabulário da aula</h2>
+          <div class="outline-card">
+            <h3 style="margin-top:0;">Treino / corpo / rotina</h3>
+            <ul>
+              <li><strong>work out</strong> – treinar / malhar</li>
+              <li><strong>training plan</strong> – plano de treino</li>
+              <li><strong>legs day</strong> – dia de perna</li>
+              <li><strong>leg press</strong> – leg press (máquina)</li>
+              <li><strong>exercise bike</strong> – bicicleta ergométrica</li>
+              <li><strong>knee</strong> – joelho</li>
+              <li><strong>shoulder</strong> – ombro</li>
+              <li><strong>hurt / hurting</strong> – doer / doendo</li>
+              <li><strong>swollen</strong> – inchado</li>
+              <li><strong>x-ray</strong> – raio-x</li>
+              <li><strong>ultrasound</strong> – ultrassom</li>
+              <li><strong>dislocate (my shoulder)</strong> – deslocar (o ombro)</li>
+              <li><strong>suddenly</strong> – de repente</li>
+            </ul>
+
+            <h3>Lista / opinião / confirmação</h3>
+            <ul>
+              <li><strong>on the list</strong> – na lista</li>
+              <li><strong>number one / number two…</strong> – número 1 / número 2…</li>
+              <li><strong>probably</strong> – provavelmente</li>
+              <li><strong>I didn’t know…</strong> – eu não sabia…</li>
+              <li><strong>surprise</strong> – surpresa</li>
+            </ul>
+
+            <h3>Animais e marcas (dos vídeos)</h3>
+            <ul>
+              <li><strong>wild boar</strong> – javali</li>
+              <li><strong>wolverine</strong> – glutão</li>
+              <li><strong>Tasmanian devil</strong> – diabo-da-tasmânia</li>
+              <li><strong>crocodile</strong> – crocodilo</li>
+              <li><strong>cape buffalo</strong> – búfalo-africano</li>
+              <li><strong>human</strong> – ser humano</li>
+              <li><strong>brand / branding</strong> – marca / fortalecimento de marca</li>
+              <li><strong>Apple / Microsoft / Amazon / Walmart / Google / Samsung / Nvidia / Instagram / Facebook</strong> – nomes citados</li>
+            </ul>
+
+            <h3>Hábitos e comportamento</h3>
+            <ul>
+              <li><strong>habit</strong> – hábito</li>
+              <li><strong>addicted / addiction</strong> – viciado / vício</li>
+              <li><strong>placebo</strong> – placebo</li>
+              <li><strong>energy drink</strong> – energético</li>
+              <li><strong>flavor</strong> – sabor</li>
+              <li><strong>watermelon</strong> – melancia</li>
+              <li><strong>get drunk</strong> – ficar bêbado</li>
+            </ul>
+
+            <h3>Gramática (termos e estruturas)</h3>
+            <ul>
+              <li><strong>used to + verb (base form)</strong> – hábito passado (ex.: <em>I used to play…</em>)</li>
+              <li><strong>be used to + noun / verb + ing</strong> – estar acostumado (ex.: <em>I’m used to working…</em>)</li>
+              <li><strong>get used to + noun / verb + ing</strong> – se acostumar (processo) (ex.: <em>I’ll get used to waking up early.</em>)</li>
+              <li><strong>stop smoking</strong> – parar com o hábito</li>
+              <li><strong>stop to smoke</strong> – parar algo para fumar</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Frases modelo da aula</h2>
+          <div class="outline-card">
+            <ul>
+              <li>I used to drink energy drinks.</li>
+              <li>I didn’t use to style my hair.</li>
+              <li>I’m used to noise.</li>
+              <li>She’s used to working at night.</li>
+              <li>I’m getting used to traffic.</li>
+              <li>I was used to playing FIFA last week. (com contexto)</li>
+              <li>We will get used to the new system.</li>
+              <li>I got used to going to the gym.</li>
+              <li>I stopped smoking last year.</li>
+              <li>I stopped to smoke after work. (parei o que eu estava fazendo para fumar)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ✅ NOVA SEÇÃO FIXA: CORREÇÕES IMPORTANTES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Correções importantes</h2>
+          <div class="outline-card">
+            <ul>
+              <li>
+                🚨 <strong>Used to (passado) sempre com “-ed”</strong><br>
+                <span style="color:#b91c1c;"><strong>Incorreto:</strong> I use to drink energy drinks.</span><br>
+                <span style="color:#166534;"><strong>Correto:</strong> I <strong>used</strong> to drink energy drinks.</span>
+              </li>
+              <li>
+                🚨 <strong>Be used to / Get used to</strong> pedem <strong>substantivo</strong> ou <strong>verbo + ing</strong><br>
+                <span style="color:#b91c1c;"><strong>Incorreto:</strong> We are used to <strong>live</strong> in a small apartment.</span><br>
+                <span style="color:#166534;"><strong>Correto:</strong> We are used to <strong>living</strong> in a small apartment.</span>
+              </li>
+              <li>
+                🚨 <strong>Get used to (processo)</strong> com tempos verbais claros<br>
+                <span style="color:#b91c1c;"><strong>Incorreto:</strong> I got <strong>usage</strong> to go to gym.</span><br>
+                <span style="color:#166534;"><strong>Correto:</strong> I got <strong>used</strong> to <strong>going</strong> to the gym.</span>
+              </li>
+              <li>
+                🚨 <strong>Futuro</strong> com “will get used to” (e não “will used to”)<br>
+                <span style="color:#b91c1c;"><strong>Incorreto:</strong> You will used to live alone.</span><br>
+                <span style="color:#166534;"><strong>Correto:</strong> You will <strong>get used to</strong> living alone.</span>
+              </li>
+              <li>
+                🚨 <strong>Stop smoking</strong> vs <strong>stop to smoke</strong><br>
+                <span style="color:#166534;"><strong>Stop smoking</strong> = parar com o hábito/vício.</span><br>
+                <span style="color:#166534;"><strong>Stop to smoke</strong> = parar uma atividade para fumar naquele momento.</span>
+              </li>
+              <li>
+                🚨 <strong>Pronúncia e forma natural</strong><br>
+                <span style="color:#b91c1c;"><strong>Incorreto:</strong> I am use it to…</span><br>
+                <span style="color:#166534;"><strong>Correto:</strong> I am <strong>used</strong> to… / I’m <strong>getting used</strong> to…</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- ✅ FIM DA NOVA SEÇÃO -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Transcrição &amp; Gravação</h2>
+          <div class="media-row">
+            <!-- Transcrição sem link (apenas botão) -->
+            <a class="media-btn" href="#" role="button">📄 Acessar transcrição</a>
+
+            <!-- Vídeo da aula com o link que você mandou -->
+            <a
+              class="media-btn"
+              href="https://youtu.be/GLxdz0QhtnA"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="button"
+              style="background:linear-gradient(180deg,#1f6fd1,#2f86e6);color:#fff;border:none;min-width:260px;"
+            >
+              🎥 Assistir gravação (acesso privado)
+            </a>
+          </div>
+        </section>
+
+        <!-- ===== TABELA DE DISTRIBUIÇÃO DE FALA ===== -->
+        <section class="speaking" aria-label="Distribuição de fala">
+          <h2>Tempo de Fala (Talk Time)</h2>
+          <table class="talk-table">
+            <thead>
+              <tr>
+                <th>Quem falou</th>
+                <th>Porcentagem</th>
+                <th>Duração aproximada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-teacher">
+                <td><span class="talk-label">César (Professor)</span></td>
+                <td><span class="talk-percent">72%</span></td>
+                <td class="talk-time">~43 minutos</td>
+              </tr>
+              <tr class="row-student">
+                <td><span class="talk-label">Mateus</span></td>
+                <td><span class="talk-percent">28%</span></td>
+                <td class="talk-time">~17 minutos</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <!-- ===== FIM TABELA ===== -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Homework</h2>
+          <div class="homework">
+            <p style="margin:0 0 8px 0;">
+              📌 <strong>Lição de casa (como combinado em aula):</strong>
+            </p>
+            <ul style="margin:0 0 6px 18px;padding:0;font-size:0.94rem;color:var(--muted);">
+              <li><strong>Ler este pós-aula</strong> de <strong>2 a 3x na semana</strong> (para fixar as correções e exemplos).</li>
+              <li>Jogar o Baamboozle (link abaixo) para revisar de forma rápida e leve.</li>
+            </ul>
+            <p style="margin:6px 0 0 0;">
+              <a
+                href="https://www.baamboozle.com/game/2434697"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn secondary"
+                style="padding:8px 12px;border-radius:8px;font-weight:700;"
+              >
+                📝 Abrir tarefa de casa (Baamboozle)
+              </a>
+            </p>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn" href="https://wa.me" style="background:#25D366;border-radius:10px;box-shadow:none;">
+              💬 Falar comigo no WhatsApp
+            </a>
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        <p style="margin:18px 0 0 0;color:var(--muted);font-size:0.9rem;">
+          © 2026 CZK English • Este conteúdo é exclusivo para fins educacionais. • Suporte: czkenglish@gmail.com
+        </p>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
